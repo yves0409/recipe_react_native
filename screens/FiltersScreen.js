@@ -9,6 +9,23 @@ const FiltersScreen = (props) => {
   );
 };
 
+FiltersScreen.navigationOptions = (navData) => {
+  return {
+    headerTitle: "Filter Meals",
+    headerLeft: (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Menu"
+          iconName="ios-menu"
+          onPress={() => {
+            navData.navigation.toggleDrawer();
+          }}
+        />
+      </HeaderButtons>
+    ),
+  };
+};
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,

@@ -11,6 +11,8 @@ import MealDetailScreen from "../screens/MealDetailScreen";
 import Colors from "../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
+import { createDrawerNavigator } from "react-navigation-drawer";
+import FiltersScreen from "../screens/FiltersScreen";
 
 const defaultStackNavOptions = {
   headerStyle: {
@@ -84,5 +86,13 @@ const MealsFavTabNavigator =
         },
       });
 
+const FilterNavigator = createStackNavigator({
+  Filters: FiltersScreen,
+});
+
+const MainNavigator = createDrawerNavigator({
+  MealsFavs: MealsFavTabNavigator,
+  Filters: FilterNavigator,
+});
 //ROOTNAVIGATOR WILL NOW BE MEALSFAVTAB BECAUSE MEALSNAVIGATOR IS NOW NESTED IN IT
-export default createAppContainer(MealsFavTabNavigator);
+export default createAppContainer(MainNavigator);
