@@ -10,6 +10,7 @@ import FavoritesScreen from "../screens/FavoritesScreen";
 import MealDetailScreen from "../screens/MealDetailScreen";
 import Colors from "../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
+import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
 // CREATE THE STACKNAVIGATOR
 const MealsNavigator = createStackNavigator(
@@ -36,40 +37,41 @@ const MealsNavigator = createStackNavigator(
   }
 );
 
-//CREATE THE TABSNAVIGATOR
-const MealsFavTabNavigator = createBottomTabNavigator(
-  {
-    Meals: {
-      screen: MealsNavigator,
-      navigationOptions: {
-        tabBarIcon: (tabInfo) => {
-          return (
-            <Ionicons
-              name="ios-restaurant"
-              size={25}
-              color={tabInfo.tintColor}
-            />
-          );
-        },
+const tabScreenConfig = {
+  Meals: {
+    screen: MealsNavigator,
+    navigationOptions: {
+      tabBarIcon: (tabInfo) => {
+        return (
+          <Ionicons name="ios-restaurant" size={25} color={tabInfo.tintColor} />
+        );
       },
-    },
-    Favorites: {
-      screen: FavoritesScreen,
-      navigationOptions: {
-        tabBarIcon: (tabInfo) => {
-          return (
-            <Ionicons name="ios-star" size={25} color={tabInfo.tintColor} />
-          );
-        },
-      },
+      tabBarColor: Colors.primaryColor,
     },
   },
-  {
-    tabBarOptions: {
-      activeTintColor: Colors.accentColor,
+  Favorites: {
+    screen: FavoritesScreen,
+    navigationOptions: {
+      tabBarIcon: (tabInfo) => {
+        return <Ionicons name="ios-star" size={25} color={tabInfo.tintColor} />;
+      },
+      tabBarColor: Colors.accentColor,
     },
-  }
-);
+  },
+};
+
+//CREATE THE TABSNAVIGATOR
+const MealsFavTabNavigator =
+  Platform.OS === "android"
+    ? createMaterialBottomTabNavigator(tabScreenConfig, {
+        activeTintColor: "white",
+        shifting: true,
+      })
+    : createBottomTabNavigator(tabScreenConfig, {
+        tabBarOptions: {
+          activeTintColor: Colors.accentColor,
+        },
+      });
 
 //ROOTNAVIGATOR WILL NOW BE MEALSFAVTAB BECAUSE MEALSNAVIGATOR IS NOW NESTED IN IT
 export default createAppContainer(MealsFavTabNavigator);
