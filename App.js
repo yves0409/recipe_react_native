@@ -8,6 +8,9 @@ import { enableScreens } from "react-native-screens";
 
 enableScreens(); //only used for better performance
 
+//disabling update warning
+console.disableYellowBox = true;
+
 //loading new fonts
 const fetchFonts = () => {
   return Font.loadAsync({

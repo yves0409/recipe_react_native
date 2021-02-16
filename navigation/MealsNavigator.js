@@ -1,12 +1,15 @@
 import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createAppContainer } from "react-navigation";
 import { Platform } from "react-native";
 
 import CategoriesScreen from "../screens/CategoriesScreen";
 import CategoryMealsScreen from "../screens/CategoryMealsScreen";
+import FavoritesScreen from "../screens/FavoritesScreen";
 import MealDetailScreen from "../screens/MealDetailScreen";
 import Colors from "../constants/Colors";
 
+// CREATE THE STACKNAVIGATOR
 const MealsNavigator = createStackNavigator(
   {
     Categories: {
@@ -31,4 +34,11 @@ const MealsNavigator = createStackNavigator(
   }
 );
 
-export default createAppContainer(MealsNavigator);
+//CREATE THE TABSNAVIGATOR
+const MealsFavTabNavigator = createBottomTabNavigator({
+  Meals: MealsNavigator,
+  Favorites: FavoritesScreen,
+});
+
+//ROOTNAVIGATOR WILL NOW BE MEALSFAVTAB BECAUSE MEALSNAVIGATOR IS NOW NESTED IN IT
+export default createAppContainer(MealsFavTabNavigator);
