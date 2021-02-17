@@ -16,6 +16,7 @@ const MealList = (props) => {
             routeName: "MealDetail", //Routenname comes form the MealsNavigator
             params: {
               mealId: itemData.item.id,
+              mealTitle: itemData.item.title,
             },
           });
         }}
